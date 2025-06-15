@@ -1,0 +1,10 @@
+services:
+  mongo:
+    image: mongo:latest
+    container_name: monitoring-db
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword
+    ports:
+      - "27019:27017"
