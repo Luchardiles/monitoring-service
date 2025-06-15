@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package monitoring;
+
+import "google/protobuf/empty.proto";
+
+message Action {
+  string id = 1;
+  string userId = 2;
+  string URLMethod = 3;
+  string userEmail = 4;
+  string actionDate = 5;
+  string action = 6;
+}
+
+message Error {
+  string id = 1;
+  string userId = 2;
+  string userEmail = 3;
+  string errorDate = 4;
+  string error = 5;
+}
+
+message CreateActionRequest {
+  string userId = 1;
+  string URLMethod = 2;
+  string userEmail = 3;
+  string actionDate = 4;
+  string action = 5;
+}
+
+message CreateErrorRequest {
+    string userId = 1;
+    string userEmail = 2;
+    string errorDate = 3;
+    string error = 4;
+}
+
+message ListActionsResponse {
+  repeated Action actions = 1;
+}
+message ListErrorsResponse {
+  repeated Error errors = 1;
+}
+
+service Monitoring {
+  rpc CreateAction(CreateActionRequest) returns (Action);
+  rpc CreateError(CreateErrorRequest) returns (Error);
+  rpc ListActions(google.protobuf.Empty) returns (ListActionsResponse);
+  rpc ListErrors(google.protobuf.Empty) returns (ListErrorsResponse);
+}
+
