@@ -4,20 +4,30 @@ const Error = require('../models/errorModel');
 const AppError = require('../utils/appError');
 
 const ListActions = catchGrpc(async (call, callback) => {
+    const { requestorRole } = call.request;
+    if (requestorRole !== "Administrador") {
+        return callback(AppError("Permission denied", 403));
+    }
     const actions = await Action.find ({})
         .sort({ actionDate: -1 })
         .exec();
         callback(null, {
+            status: 200,
             actions
         });
     }
 );
 
 const ListErrors = catchGrpc(async (call, callback) => {
+    const { requestorRole } = call.request;
+    if (requestorRole !== "Administrador") {
+        return callback(AppError("Permission denied", 403));
+    }
     const errors = await Error.find({})
         .sort({ errorDate: -1 })
         .exec();
     callback(null, {
+        status: 200,
         errors
     });
 });
@@ -31,7 +41,7 @@ const CreateAction = catchGrpc(async (call, callback) => {
         actionDate : new Date(),
         action
     });
-    callback(null, actionCreated);
+    callback(null, { status: 200, action: actionCreated });
 });
 
 const CreateError = catchGrpc(async (call, callback) => {
@@ -42,7 +52,7 @@ const CreateError = catchGrpc(async (call, callback) => {
         errorDate: new Date(),
         error
     });
-    callback(null, errorCreated);
+    callback(null, { status: 200, error: errorCreated });
 });
 
 module.exports = {
