@@ -9,7 +9,7 @@ const ActionSchema = new mongoose.Schema(
     },
     userId: {
       type: String,
-      required: true,
+      required: false,
     },
     URLMethod: {
       type: String,
@@ -17,7 +17,7 @@ const ActionSchema = new mongoose.Schema(
     },
     userEmail: {
       type: String,
-      required: true,
+      required: false,
     },
     action: {
       type: String,

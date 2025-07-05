@@ -9,11 +9,11 @@ const ErrorSchema = new mongoose.Schema(
     },
     userId: {
       type: String,
-      required: true,
+      required: false,
     },
     userEmail: {
       type: String,
-      required: true,
+      required: false,
     },
     errorDate: {
       type: Date,
